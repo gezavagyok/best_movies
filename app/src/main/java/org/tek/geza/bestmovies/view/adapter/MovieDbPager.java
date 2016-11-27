@@ -6,13 +6,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import org.tek.geza.bestmovies.view.fragment.ContentListFragment;
 
-import javax.inject.Inject;
-
 public class MovieDbPager extends FragmentPagerAdapter {
 
     private static final int PAGE_COUNT = 3;
 
-    @Inject
     public MovieDbPager(FragmentManager fm) {
         super(fm);
     }

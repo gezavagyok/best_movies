@@ -4,8 +4,6 @@ import org.tek.geza.bestmovies.model.movie.list.Movie;
 import org.tek.geza.bestmovies.model.repository.MovieRepository;
 import org.tek.geza.bestmovies.presenter.usecase.UseCase;
 
-import javax.inject.Inject;
-
 import rx.Observable;
 
 public class GetTop20Movies implements UseCase<Observable<Movie>, Void> {
@@ -13,7 +11,6 @@ public class GetTop20Movies implements UseCase<Observable<Movie>, Void> {
     private final static int MOVIE_COUNT = 20;
     MovieRepository repository;
 
-    @Inject
     public GetTop20Movies(MovieRepository repository) {
         this.repository = repository;
     }

@@ -3,25 +3,24 @@ package org.tek.geza.bestmovies.view.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.widget.EditText;
 
+import org.tek.geza.bestmovies.BestMoviesApplication;
 import org.tek.geza.bestmovies.R;
-import org.tek.geza.bestmovies.di.component.ActivityComponent;
-import org.tek.geza.bestmovies.di.component.DaggerActivityComponent;
+import org.tek.geza.bestmovies.di.component.AppComponent;
+import org.tek.geza.bestmovies.di.module.ActivityModule;
+import org.tek.geza.bestmovies.di.module.ui.HomeModule;
 import org.tek.geza.bestmovies.util.OnTextClearedWatcher;
 import org.tek.geza.bestmovies.util.SearchListener;
-import org.tek.geza.bestmovies.util.network.RetrofitException;
 import org.tek.geza.bestmovies.view.adapter.MovieDbPager;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 
@@ -49,20 +48,33 @@ public class MainActivity extends BaseActivity {
     @Inject
     OnTextClearedWatcher watcher;
 
-    ActivityComponent component;
+    ActivityModule activityModule;
+
+    public ActivityModule getActivityModule() {
+        return activityModule;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        inject();
         setupViewPager();
         searchTextView.setOnEditorActionListener(searchListener);
         searchTextView.addTextChangedListener(watcher);
     }
 
+    @Override
+    protected void createComponent(AppComponent appcomponent) {
+        activityModule = new ActivityModule(this);
+        BestMoviesApplication.getComponent()
+                .createHome(new HomeModule(),activityModule)
+                .inject(this);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
 
     private void setupViewPager() {
         viewPager.setAdapter(pagerAdapter);
@@ -70,26 +82,4 @@ public class MainActivity extends BaseActivity {
         titleStrip.setTextColor(Color.WHITE);
         titleStrip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
     }
-
-    private void inject() {
-        component = DaggerActivityComponent.builder()
-                .activityModule(module)
-                .build();
-        component.inject(this);
-    }
-
-    @Override
-    public void onError(Throwable t) {
-        // Crashlytics.logException()
-        if (((RetrofitException) t).isNetworkError()) {
-            Snackbar.make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_SHORT).show();
-        } else if (((RetrofitException) t).getCode() != 0) {
-            Snackbar.make(coordinatorLayout, "Oops, server is on fire!", Snackbar.LENGTH_SHORT).show();
-        } else {
-            Snackbar.make(coordinatorLayout, "Oops, we are working on this issue!", Snackbar.LENGTH_SHORT).show();
-        }
-
-    }
-
-
 }

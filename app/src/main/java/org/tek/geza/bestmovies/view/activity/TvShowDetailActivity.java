@@ -3,24 +3,22 @@ package org.tek.geza.bestmovies.view.activity;
 import android.content.res.Resources;
 
 import org.tek.geza.bestmovies.R;
-import org.tek.geza.bestmovies.di.component.DaggerTvShowComponent;
-import org.tek.geza.bestmovies.di.component.TvShowComponent;
-import org.tek.geza.bestmovies.model.movie.detail.Genre;
-import org.tek.geza.bestmovies.model.movie.detail.ProductionCountry;
+import org.tek.geza.bestmovies.di.component.AppComponent;
+import org.tek.geza.bestmovies.di.module.ActivityModule;
+import org.tek.geza.bestmovies.di.module.ui.TvShowModule;
 import org.tek.geza.bestmovies.model.tv.detail.CreatedBy;
 import org.tek.geza.bestmovies.model.tv.detail.TvShowDetail;
 import org.tek.geza.bestmovies.presenter.TvShowPresenter;
 
 import javax.inject.Inject;
 
-import rx.Observable;
 import rx.Subscription;
 import rx.functions.Action1;
 import rx.functions.Func1;
 
-public class TvShowDetailActivity extends DetailActivity {
+import static rx.plugins.RxJavaHooks.onError;
 
-    TvShowComponent tvShowComponent;
+public class TvShowDetailActivity extends DetailActivity {
 
     @Inject
     TvShowPresenter tvShowPresenter;
@@ -60,16 +58,13 @@ public class TvShowDetailActivity extends DetailActivity {
     }
 
     @Override
-    protected void inject() {
-        tvShowComponent = DaggerTvShowComponent.builder()
-                .activityModule(getActivityModule())
-                .build();
-        tvShowComponent.inject(this);
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
         subscriptions.unsubscribe();
+    }
+
+    @Override
+    protected void createComponent(AppComponent appcomponent) {
+        appcomponent.tvShow(new ActivityModule(this),new TvShowModule()).inject(this);
     }
 }

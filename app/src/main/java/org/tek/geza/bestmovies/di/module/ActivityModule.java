@@ -8,8 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 
-import org.tek.geza.bestmovies.util.network.ErrorHandler;
 import org.tek.geza.bestmovies.util.SearchListener;
+import org.tek.geza.bestmovies.util.network.ErrorHandler;
+import org.tek.geza.bestmovies.util.network.ToastErrorHandler;
 
 import javax.inject.Named;
 
@@ -20,11 +21,9 @@ import dagger.Provides;
 public class ActivityModule {
 
     private final AppCompatActivity activity;
-    private final ErrorHandler handler;
 
-    public ActivityModule(AppCompatActivity activity, ErrorHandler handler) {
+    public ActivityModule(AppCompatActivity activity) {
         this.activity = activity;
-        this.handler = handler;
     }
 
     @Provides @Named("preferencesName") String providePreferencesName(){
@@ -41,11 +40,6 @@ public class ActivityModule {
     @Provides
     SharedPreferences provideSharedPreferences(@Named("preferencesName") String name){
         return activity.getSharedPreferences(name, Context.MODE_PRIVATE);
-    }
-
-    @Provides
-    ErrorHandler provideErrorHandler(){
-        return handler;
     }
 
     @Provides
@@ -72,5 +66,10 @@ public class ActivityModule {
     @Provides
     SearchListener provideSearchListener(){
         return new SearchListener();
+    }
+
+    @Provides
+    ErrorHandler provideErrorHandler() {
+        return new ToastErrorHandler(activity);
     }
 }

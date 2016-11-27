@@ -1,11 +1,12 @@
 package org.tek.geza.bestmovies.view.fragment;
 
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.tek.geza.bestmovies.di.component.DaggerTvShowComponent;
-import org.tek.geza.bestmovies.di.component.TvShowComponent;
+import org.tek.geza.bestmovies.BestMoviesApplication;
+import org.tek.geza.bestmovies.di.module.ui.TvShowModule;
 import org.tek.geza.bestmovies.model.tv.list.TvShow;
 import org.tek.geza.bestmovies.presenter.TvShowPresenter;
 import org.tek.geza.bestmovies.util.event.LoadRequestEvent;
@@ -23,17 +24,19 @@ import rx.functions.Func1;
 
 public class TvShowFragment extends ContentListFragment {
 
-    @Inject
     TvAdapter tvAdapter;
+    LinearLayoutManager layoutManager;
 
     @Inject
     TvShowPresenter presenter;
 
     @Inject
-    LinearLayoutManager layoutManager;
-
-    @Inject
     ErrorHandler errorHandler;
+
+    void onInit(){
+        layoutManager = new LinearLayoutManager(getActivity());
+        tvAdapter = new TvAdapter((AppCompatActivity) getActivity());
+    }
 
     @Override
     protected void setupRecyclerView() {
@@ -83,7 +86,6 @@ public class TvShowFragment extends ContentListFragment {
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
-
     }
 
     @Override
@@ -125,9 +127,9 @@ public class TvShowFragment extends ContentListFragment {
 
     @Override
     protected void inject() {
-        this.component = DaggerTvShowComponent.builder()
-                .activityModule(((MainActivity) getActivity()).getComponent())
-                .build();
-        ((TvShowComponent) component).inject(this);
+        BestMoviesApplication.getComponent()
+                .tvShow(((MainActivity)getActivity()).getActivityModule(),
+                        new TvShowModule())
+                .inject(this);
     }
 }

@@ -4,8 +4,8 @@ import android.support.v7.widget.GridLayoutManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.tek.geza.bestmovies.di.component.DaggerPersonComponent;
-import org.tek.geza.bestmovies.di.component.PersonComponent;
+import org.tek.geza.bestmovies.BestMoviesApplication;
+import org.tek.geza.bestmovies.di.module.ui.PersonModule;
 import org.tek.geza.bestmovies.model.people.Star;
 import org.tek.geza.bestmovies.presenter.PeoplePresenter;
 import org.tek.geza.bestmovies.util.event.LoadRequestEvent;
@@ -23,10 +23,7 @@ import rx.functions.Func1;
 
 public class StarFragment extends ContentListFragment {
 
-    @Inject
     StarAdapter starAdapter;
-
-    @Inject
     GridLayoutManager gridLayoutManager;
 
     @Inject
@@ -34,6 +31,11 @@ public class StarFragment extends ContentListFragment {
 
     @Inject
     ErrorHandler errorHandler;
+
+    void onInit(){
+        starAdapter = new StarAdapter();
+        gridLayoutManager = new GridLayoutManager(getActivity(),2);
+    }
 
     @Override
     protected void setupRecyclerView() {
@@ -125,9 +127,9 @@ public class StarFragment extends ContentListFragment {
 
     @Override
     protected void inject() {
-        this.component = DaggerPersonComponent.builder()
-                .activityModule(((MainActivity) getActivity()).getComponent())
-                .build();
-        ((PersonComponent) component).inject(this);
+        BestMoviesApplication.getComponent()
+                .person(((MainActivity)getActivity()).getActivityModule(),
+                        new PersonModule())
+                .inject(this);
     }
 }

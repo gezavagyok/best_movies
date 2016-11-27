@@ -6,9 +6,9 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.tek.geza.bestmovies.model.MovieDbApi;
 import org.tek.geza.bestmovies.util.network.RxErrorHandlingCallAdapterFactory;
 import org.tek.geza.bestmovies.util.network.SimpleCookieJar;
-import org.tek.geza.bestmovies.model.MovieDbApi;
 
 import java.io.IOException;
 

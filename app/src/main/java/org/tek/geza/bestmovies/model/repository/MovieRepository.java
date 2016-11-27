@@ -3,10 +3,7 @@ package org.tek.geza.bestmovies.model.repository;
 import org.tek.geza.bestmovies.model.MovieDbApi;
 import org.tek.geza.bestmovies.model.movie.detail.MovieDetails;
 import org.tek.geza.bestmovies.model.movie.list.Movie;
-import org.tek.geza.bestmovies.util.network.ErrorHandler;
 import org.tek.geza.bestmovies.util.transformer.MovieTransformer;
-
-import javax.inject.Inject;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -16,13 +13,10 @@ public class MovieRepository {
 
     MovieDbApi api;
     MovieTransformer transformer;
-    ErrorHandler handler;
 
-    @Inject
-    public MovieRepository(MovieDbApi api, MovieTransformer transformer, ErrorHandler handler) {
+    public MovieRepository(MovieDbApi api, MovieTransformer transformer) {
         this.api = api;
         this.transformer = transformer;
-        this.handler = handler;
     }
 
     public Observable<Movie> getTopMovies() {

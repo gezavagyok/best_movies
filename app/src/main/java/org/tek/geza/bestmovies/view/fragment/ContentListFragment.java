@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.tek.geza.bestmovies.R;
-import org.tek.geza.bestmovies.di.component.ActivityComponent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,8 +24,6 @@ public abstract class ContentListFragment extends Fragment {
     public static final int TYPE_MOVIE = 0;
     public static final int TYPE_TVSHOW = 1;
     public static final int TYPE_STAR = 2;
-
-    ActivityComponent component;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -65,9 +62,12 @@ public abstract class ContentListFragment extends Fragment {
         inject();
         subscription = new CompositeSubscription();
         ButterKnife.bind(this, view);
+        onInit();
         setupRecyclerView();
         return view;
     }
+
+    abstract void onInit();
 
     abstract void setupRecyclerView();
 

@@ -4,8 +4,6 @@ import org.tek.geza.bestmovies.model.people.Star;
 import org.tek.geza.bestmovies.presenter.usecase.load.GetFamousPeople;
 import org.tek.geza.bestmovies.presenter.usecase.search.SearchStars;
 
-import javax.inject.Inject;
-
 import rx.Observable;
 
 public class PeoplePresenter {
@@ -13,7 +11,6 @@ public class PeoplePresenter {
     GetFamousPeople getFamousPeople;
     SearchStars searchStars;
 
-    @Inject
     public PeoplePresenter(GetFamousPeople getFamousPeople, SearchStars searchStars) {
         this.getFamousPeople = getFamousPeople;
         this.searchStars = searchStars;

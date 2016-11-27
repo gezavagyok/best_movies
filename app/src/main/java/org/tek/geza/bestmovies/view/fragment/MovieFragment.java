@@ -1,11 +1,12 @@
 package org.tek.geza.bestmovies.view.fragment;
 
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.tek.geza.bestmovies.di.component.DaggerMovieComponent;
-import org.tek.geza.bestmovies.di.component.MovieComponent;
+import org.tek.geza.bestmovies.BestMoviesApplication;
+import org.tek.geza.bestmovies.di.module.ui.MovieModule;
 import org.tek.geza.bestmovies.model.movie.list.Movie;
 import org.tek.geza.bestmovies.presenter.MoviePresenter;
 import org.tek.geza.bestmovies.util.event.LoadRequestEvent;
@@ -23,7 +24,6 @@ import rx.functions.Func1;
 
 public class MovieFragment extends ContentListFragment {
 
-    @Inject
     MovieAdapter movieAdapter;
 
     @Inject
@@ -34,6 +34,10 @@ public class MovieFragment extends ContentListFragment {
 
     @Inject
     ErrorHandler errorHandler;
+
+    void onInit(){
+        movieAdapter = new MovieAdapter((AppCompatActivity) getActivity());
+    }
 
     @Override
     protected void setupRecyclerView() {
@@ -118,10 +122,10 @@ public class MovieFragment extends ContentListFragment {
 
     @Override
     protected void inject() {
-        this.component = DaggerMovieComponent.builder()
-                .activityModule(((MainActivity) getActivity()).getComponent())
-                .build();
-        ((MovieComponent) component).inject(this);
+        BestMoviesApplication.getComponent()
+                .movie(((MainActivity)getActivity()).getActivityModule(),
+                        new MovieModule())
+                .inject(this);
     }
 
 

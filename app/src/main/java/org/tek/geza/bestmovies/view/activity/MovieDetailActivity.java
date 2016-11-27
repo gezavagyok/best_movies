@@ -3,8 +3,9 @@ package org.tek.geza.bestmovies.view.activity;
 import android.content.res.Resources;
 
 import org.tek.geza.bestmovies.R;
-import org.tek.geza.bestmovies.di.component.DaggerMovieComponent;
-import org.tek.geza.bestmovies.di.component.MovieComponent;
+import org.tek.geza.bestmovies.di.component.AppComponent;
+import org.tek.geza.bestmovies.di.module.ActivityModule;
+import org.tek.geza.bestmovies.di.module.ui.MovieModule;
 import org.tek.geza.bestmovies.model.movie.detail.Genre;
 import org.tek.geza.bestmovies.model.movie.detail.MovieDetails;
 import org.tek.geza.bestmovies.model.movie.detail.ProductionCountry;
@@ -16,9 +17,9 @@ import rx.Subscription;
 import rx.functions.Action1;
 import rx.functions.Func1;
 
-public class MovieDetailActivity extends DetailActivity {
+import static rx.plugins.RxJavaHooks.onError;
 
-    MovieComponent movieComponent;
+public class MovieDetailActivity extends DetailActivity {
 
     @Inject
     MoviePresenter moviePresenter;
@@ -43,7 +44,6 @@ public class MovieDetailActivity extends DetailActivity {
                         for(ProductionCountry pc: movieDetails.getProductionCountries()) sb.append(pc.getName()).append(" ");
                         tvCountry.setText(String.format(res.getString(R.string.production_countries_schema), sb.toString()));
                         tvOverview.setText(String.format(res.getString(R.string.story_schema), movieDetails.getOverview()));
-
                     }
                 })
                 .onErrorReturn(new Func1<Throwable, MovieDetails>() {
@@ -58,10 +58,7 @@ public class MovieDetailActivity extends DetailActivity {
     }
 
     @Override
-    protected void inject() {
-        movieComponent = DaggerMovieComponent.builder()
-                .activityModule(getActivityModule())
-                .build();
-        movieComponent.inject(this);
+    protected void createComponent(AppComponent appcomponent) {
+        appcomponent.movie(new ActivityModule(this),new MovieModule()).inject(this);
     }
 }

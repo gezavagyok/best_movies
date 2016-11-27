@@ -4,15 +4,12 @@ import org.tek.geza.bestmovies.model.movie.detail.MovieDetails;
 import org.tek.geza.bestmovies.model.repository.MovieRepository;
 import org.tek.geza.bestmovies.presenter.usecase.UseCase;
 
-import javax.inject.Inject;
-
 import rx.Observable;
 
 public class GetMovieDetails implements UseCase<Observable<MovieDetails>, Integer> {
 
     MovieRepository repository;
 
-    @Inject
     public GetMovieDetails(MovieRepository repository) {
         this.repository = repository;
     }

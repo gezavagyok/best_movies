@@ -1,10 +1,8 @@
 package org.tek.geza.bestmovies.model.repository;
 
-import org.tek.geza.bestmovies.util.transformer.StarTransformer;
 import org.tek.geza.bestmovies.model.MovieDbApi;
 import org.tek.geza.bestmovies.model.people.Star;
-
-import javax.inject.Inject;
+import org.tek.geza.bestmovies.util.transformer.StarTransformer;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -19,7 +17,6 @@ public class StarRepository {
     MovieDbApi api;
     StarTransformer starTransformer;
 
-    @Inject
     public StarRepository(MovieDbApi api, StarTransformer starTransformer) {
         this.starTransformer = starTransformer;
         this.api = api;
