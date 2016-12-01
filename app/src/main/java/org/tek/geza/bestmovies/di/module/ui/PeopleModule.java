@@ -11,7 +11,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class PersonModule {
+public class PeopleModule {
 
     @Provides
     StarRepository provideStarRepositor(MovieDbApi api, StarTransformer transformer) {

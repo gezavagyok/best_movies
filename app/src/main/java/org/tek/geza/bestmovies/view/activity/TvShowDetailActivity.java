@@ -1,6 +1,7 @@
 package org.tek.geza.bestmovies.view.activity;
 
 import android.content.res.Resources;
+import android.support.v7.widget.LinearLayoutManager;
 
 import org.tek.geza.bestmovies.R;
 import org.tek.geza.bestmovies.di.component.AppComponent;
@@ -9,6 +10,7 @@ import org.tek.geza.bestmovies.di.module.ui.TvShowModule;
 import org.tek.geza.bestmovies.model.tv.detail.CreatedBy;
 import org.tek.geza.bestmovies.model.tv.detail.TvShowDetail;
 import org.tek.geza.bestmovies.presenter.TvShowPresenter;
+import org.tek.geza.bestmovies.view.adapter.MoviePosterAdapter;
 
 import javax.inject.Inject;
 
@@ -44,6 +46,8 @@ public class TvShowDetailActivity extends DetailActivity {
                         for(CreatedBy cb: tvShowDetail.getCreatedBy()) sb.append(cb.getName()).append(" ");
                         tvCountry.setText("");
                         tvOverview.setText(String.format(res.getString(R.string.story_schema), tvShowDetail.getOverview()));
+                        llImageContainer.setAdapter(new MoviePosterAdapter(tvShowDetail.getPosters()));
+                        llImageContainer.setLayoutManager(new LinearLayoutManager(TvShowDetailActivity.this,LinearLayoutManager.HORIZONTAL,false));
                     }
                 })
                 .onErrorReturn(new Func1<Throwable, TvShowDetail>() {

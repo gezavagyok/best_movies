@@ -2,6 +2,7 @@ package org.tek.geza.bestmovies.view.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import org.tek.geza.bestmovies.R;
@@ -33,6 +34,9 @@ public abstract class DetailActivity extends BaseActivity {
 
     @BindView(R.id.tv_overview)
     TextView tvOverview;
+
+    @BindView(R.id.image_container)
+    RecyclerView llImageContainer;
 
     @BindView(R.id.coordinator_layout)
     CoordinatorLayout coordinatorLayout;

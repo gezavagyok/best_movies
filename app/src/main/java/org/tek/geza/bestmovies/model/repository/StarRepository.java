@@ -1,7 +1,7 @@
 package org.tek.geza.bestmovies.model.repository;
 
 import org.tek.geza.bestmovies.model.MovieDbApi;
-import org.tek.geza.bestmovies.model.people.Star;
+import org.tek.geza.bestmovies.model.people.Person;
 import org.tek.geza.bestmovies.util.transformer.StarTransformer;
 
 import rx.Observable;
@@ -22,15 +22,15 @@ public class StarRepository {
         this.api = api;
     }
 
-    public Observable<Star> getPopularStars() {
+    public Observable<Person> getPopularPeople() {
         return api.getPopularPeople()
                 .flatMap(starTransformer)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<Star> searchStars(String query) {
-        return api.searchStars(query)
+    public Observable<Person> searchStars(String query) {
+        return api.searchPeople(query)
                 .flatMap(starTransformer)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());

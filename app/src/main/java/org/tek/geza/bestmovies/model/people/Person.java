@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
-public class Star {
+public class Person {
 
     public static final int ERROR = -1;
     @SerializedName("id")
@@ -20,10 +20,10 @@ public class Star {
     private String profilePath;
     private String movies;
 
-    public static Star error() {
-        Star star = new Star();
-        star.setId(ERROR);
-        return star;
+    public static Person error() {
+        Person person = new Person();
+        person.setId(ERROR);
+        return person;
     }
 
     /**

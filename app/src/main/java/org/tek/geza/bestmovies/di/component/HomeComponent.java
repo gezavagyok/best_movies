@@ -13,6 +13,6 @@ import dagger.Subcomponent;
         modules = {
                 HomeModule.class, ActivityModule.class
         })
-public interface HomeActivityComponent {
+public interface HomeComponent {
     void inject(MainActivity activity);
 }

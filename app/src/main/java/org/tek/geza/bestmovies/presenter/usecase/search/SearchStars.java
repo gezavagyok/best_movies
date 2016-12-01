@@ -1,12 +1,12 @@
 package org.tek.geza.bestmovies.presenter.usecase.search;
 
-import org.tek.geza.bestmovies.model.people.Star;
+import org.tek.geza.bestmovies.model.people.Person;
 import org.tek.geza.bestmovies.model.repository.StarRepository;
 import org.tek.geza.bestmovies.presenter.usecase.UseCase;
 
 import rx.Observable;
 
-public class SearchStars implements UseCase<Observable<Star>, String> {
+public class SearchStars implements UseCase<Observable<Person>, String> {
 
     StarRepository starRepository;
 
@@ -15,7 +15,7 @@ public class SearchStars implements UseCase<Observable<Star>, String> {
     }
 
     @Override
-    public Observable<Star> execute(String param) {
+    public Observable<Person> execute(String param) {
         return starRepository.searchStars(param);
     }
 }

@@ -5,8 +5,8 @@ import android.support.v7.widget.GridLayoutManager;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.tek.geza.bestmovies.BestMoviesApplication;
-import org.tek.geza.bestmovies.di.module.ui.PersonModule;
-import org.tek.geza.bestmovies.model.people.Star;
+import org.tek.geza.bestmovies.di.module.ui.PeopleModule;
+import org.tek.geza.bestmovies.model.people.Person;
 import org.tek.geza.bestmovies.presenter.PeoplePresenter;
 import org.tek.geza.bestmovies.util.event.LoadRequestEvent;
 import org.tek.geza.bestmovies.util.event.SearchRequestEvent;
@@ -58,9 +58,9 @@ public class StarFragment extends ContentListFragment {
 
         starAdapter.clear();
         Subscription s = presenter.searchStars(event.getQuery().toString())
-                .doOnNext(new Action1<Star>() {
+                .doOnNext(new Action1<Person>() {
                     @Override
-                    public void call(Star star) {
+                    public void call(Person star) {
                         starAdapter.addStar(star);
                     }
                 })
@@ -70,11 +70,11 @@ public class StarFragment extends ContentListFragment {
                         starAdapter.notifyDataSetChanged();
                     }
                 })
-                .onErrorReturn(new Func1<Throwable, Star>() {
+                .onErrorReturn(new Func1<Throwable, Person>() {
                     @Override
-                    public Star call(Throwable throwable) {
+                    public Person call(Throwable throwable) {
                         errorHandler.onError(throwable);
-                        return Star.error();
+                        return Person.error();
                     }
                 })
                 .subscribe();
@@ -103,9 +103,9 @@ public class StarFragment extends ContentListFragment {
 
     public void onRefresh() {
         Subscription s = presenter.refreshList()
-                .doOnNext(new Action1<Star>() {
+                .doOnNext(new Action1<Person>() {
                     @Override
-                    public void call(Star star) {
+                    public void call(Person star) {
                         starAdapter.addStar(star);
                     }
                 })
@@ -115,11 +115,11 @@ public class StarFragment extends ContentListFragment {
                         starAdapter.notifyDataSetChanged();
                     }
                 })
-                .onErrorReturn(new Func1<Throwable, Star>() {
+                .onErrorReturn(new Func1<Throwable, Person>() {
                     @Override
-                    public Star call(Throwable throwable) {
+                    public Person call(Throwable throwable) {
                         errorHandler.onError(throwable);
-                        return Star.error();
+                        return Person.error();
                     }
                 }).subscribe();
         subscription.add(s);
@@ -129,7 +129,7 @@ public class StarFragment extends ContentListFragment {
     protected void inject() {
         BestMoviesApplication.getComponent()
                 .person(((MainActivity)getActivity()).getActivityModule(),
-                        new PersonModule())
+                        new PeopleModule())
                 .inject(this);
     }
 }

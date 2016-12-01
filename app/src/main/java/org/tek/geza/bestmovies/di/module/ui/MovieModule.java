@@ -6,6 +6,7 @@ import org.tek.geza.bestmovies.presenter.MoviePresenter;
 import org.tek.geza.bestmovies.presenter.usecase.load.GetMovieDetails;
 import org.tek.geza.bestmovies.presenter.usecase.load.GetTop20Movies;
 import org.tek.geza.bestmovies.presenter.usecase.search.SearchForMovie;
+import org.tek.geza.bestmovies.util.transformer.MovieAndPosterMerger;
 import org.tek.geza.bestmovies.util.transformer.MovieTransformer;
 
 import dagger.Module;
@@ -13,6 +14,11 @@ import dagger.Provides;
 
 @Module
 public class MovieModule {
+
+    @Provides
+    MovieAndPosterMerger provideMovieAndPosterMerger() {
+        return new MovieAndPosterMerger();
+    }
 
     @Provides
     MovieRepository provideMovieRepository(MovieDbApi api, MovieTransformer transformer) {
@@ -25,8 +31,8 @@ public class MovieModule {
     }
 
     @Provides
-    GetMovieDetails provideGetMovieDetails(MovieRepository repository) {
-        return new GetMovieDetails(repository);
+    GetMovieDetails provideGetMovieDetails(MovieRepository repository, MovieAndPosterMerger merger) {
+        return new GetMovieDetails(repository, merger);
     }
 
     @Provides

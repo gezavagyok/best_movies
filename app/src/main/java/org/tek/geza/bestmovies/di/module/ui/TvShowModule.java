@@ -6,6 +6,7 @@ import org.tek.geza.bestmovies.presenter.TvShowPresenter;
 import org.tek.geza.bestmovies.presenter.usecase.load.GetTvShowDetail;
 import org.tek.geza.bestmovies.presenter.usecase.load.GetTvShows;
 import org.tek.geza.bestmovies.presenter.usecase.search.SearchForTvShow;
+import org.tek.geza.bestmovies.util.transformer.TvShowAndPosterMerger;
 import org.tek.geza.bestmovies.util.transformer.TvShowTransformer;
 
 import dagger.Module;
@@ -13,6 +14,11 @@ import dagger.Provides;
 
 @Module
 public class TvShowModule {
+
+    @Provides
+    TvShowAndPosterMerger provideMerger() {
+        return new TvShowAndPosterMerger();
+    }
 
     @Provides
     TvRepository provideTvRepository(MovieDbApi api, TvShowTransformer transformer) {
@@ -25,8 +31,8 @@ public class TvShowModule {
     }
 
     @Provides
-    GetTvShowDetail provideGetTvShowDetail(TvRepository repository) {
-        return new GetTvShowDetail(repository);
+    GetTvShowDetail provideGetTvShowDetail(TvRepository repository, TvShowAndPosterMerger merger) {
+        return new GetTvShowDetail(repository, merger);
     }
 
     @Provides

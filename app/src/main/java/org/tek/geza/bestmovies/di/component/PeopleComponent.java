@@ -1,7 +1,7 @@
 package org.tek.geza.bestmovies.di.component;
 
 import org.tek.geza.bestmovies.di.module.ActivityModule;
-import org.tek.geza.bestmovies.di.module.ui.PersonModule;
+import org.tek.geza.bestmovies.di.module.ui.PeopleModule;
 import org.tek.geza.bestmovies.view.fragment.StarFragment;
 
 import dagger.Subcomponent;
@@ -9,8 +9,8 @@ import dagger.Subcomponent;
 @Subcomponent(
         modules = {
                 ActivityModule.class,
-                PersonModule.class
+                PeopleModule.class
         })
-public interface PersonComponent {
+public interface PeopleComponent {
     void inject(StarFragment fragment);
 }

@@ -1,6 +1,7 @@
 package org.tek.geza.bestmovies.model.repository;
 
 import org.tek.geza.bestmovies.model.MovieDbApi;
+import org.tek.geza.bestmovies.model.movie.response.image.ImageResponse;
 import org.tek.geza.bestmovies.model.tv.detail.TvShowDetail;
 import org.tek.geza.bestmovies.model.tv.list.TvShow;
 import org.tek.geza.bestmovies.util.transformer.TvShowTransformer;
@@ -36,6 +37,12 @@ public class TvRepository {
 
     public Observable<TvShowDetail> getTvShowDetail(int id) {
         return api.getTvShowDetail(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<ImageResponse> getTvShowImages(int id) {
+        return api.getTvShowImages(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

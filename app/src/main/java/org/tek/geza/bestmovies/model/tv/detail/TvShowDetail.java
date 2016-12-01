@@ -4,6 +4,8 @@ package org.tek.geza.bestmovies.model.tv.detail;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.tek.geza.bestmovies.model.movie.response.image.Poster;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +56,16 @@ public class TvShowDetail {
     @SerializedName("vote_average")
     @Expose
     private Double voteAverage;
+
+    private List<Poster> posters;
+
+    public List<Poster> getPosters() {
+        return posters;
+    }
+
+    public void setPosters(List<Poster> posters) {
+        this.posters = posters;
+    }
 
     /**
      * @return The createdBy

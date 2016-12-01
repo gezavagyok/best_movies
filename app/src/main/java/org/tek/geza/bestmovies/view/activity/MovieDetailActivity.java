@@ -1,6 +1,7 @@
 package org.tek.geza.bestmovies.view.activity;
 
 import android.content.res.Resources;
+import android.support.v7.widget.LinearLayoutManager;
 
 import org.tek.geza.bestmovies.R;
 import org.tek.geza.bestmovies.di.component.AppComponent;
@@ -10,6 +11,7 @@ import org.tek.geza.bestmovies.model.movie.detail.Genre;
 import org.tek.geza.bestmovies.model.movie.detail.MovieDetails;
 import org.tek.geza.bestmovies.model.movie.detail.ProductionCountry;
 import org.tek.geza.bestmovies.presenter.MoviePresenter;
+import org.tek.geza.bestmovies.view.adapter.MoviePosterAdapter;
 
 import javax.inject.Inject;
 
@@ -44,6 +46,8 @@ public class MovieDetailActivity extends DetailActivity {
                         for(ProductionCountry pc: movieDetails.getProductionCountries()) sb.append(pc.getName()).append(" ");
                         tvCountry.setText(String.format(res.getString(R.string.production_countries_schema), sb.toString()));
                         tvOverview.setText(String.format(res.getString(R.string.story_schema), movieDetails.getOverview()));
+                        llImageContainer.setAdapter(new MoviePosterAdapter(movieDetails.getImageUrls()));
+                        llImageContainer.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this,LinearLayoutManager.HORIZONTAL,false));
                     }
                 })
                 .onErrorReturn(new Func1<Throwable, MovieDetails>() {

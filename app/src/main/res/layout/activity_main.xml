@@ -33,7 +33,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:layout_marginRight="64dp"
                 android:drawableRight="@drawable/ic_search"
                 android:ellipsize="end"
                 android:hint="@string/hint_search_text"

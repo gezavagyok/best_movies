@@ -1,6 +1,6 @@
 package org.tek.geza.bestmovies.presenter;
 
-import org.tek.geza.bestmovies.model.people.Star;
+import org.tek.geza.bestmovies.model.people.Person;
 import org.tek.geza.bestmovies.presenter.usecase.load.GetFamousPeople;
 import org.tek.geza.bestmovies.presenter.usecase.search.SearchStars;
 
@@ -16,11 +16,11 @@ public class PeoplePresenter {
         this.searchStars = searchStars;
     }
 
-    public Observable<Star> refreshList() {
+    public Observable<Person> refreshList() {
         return getFamousPeople.execute(null);
     }
 
-    public Observable<Star> searchStars(String query) {
+    public Observable<Person> searchStars(String query) {
         return searchStars.execute(query);
     }
 }

@@ -1,12 +1,12 @@
 package org.tek.geza.bestmovies.presenter.usecase.load;
 
-import org.tek.geza.bestmovies.model.people.Star;
+import org.tek.geza.bestmovies.model.people.Person;
 import org.tek.geza.bestmovies.model.repository.StarRepository;
 import org.tek.geza.bestmovies.presenter.usecase.UseCase;
 
 import rx.Observable;
 
-public class GetFamousPeople implements UseCase<Observable<Star>, Void> {
+public class GetFamousPeople implements UseCase<Observable<Person>, Void> {
 
     StarRepository starRepository;
 
@@ -15,7 +15,7 @@ public class GetFamousPeople implements UseCase<Observable<Star>, Void> {
     }
 
     @Override
-    public Observable<Star> execute(Void param) {
-        return starRepository.getPopularStars();
+    public Observable<Person> execute(Void param) {
+        return starRepository.getPopularPeople();
     }
 }
