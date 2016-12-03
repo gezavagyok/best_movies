@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.tek.geza.bestmovies.model.movie.response.image.Poster;
+import org.tek.geza.bestmovies.model.movie.response.review.Review;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,16 @@ public class MovieDetails {
     private Double voteAverage;
 
     private List<Poster> imageUrls;
+
+    private List<Review> reviews;
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
 
     public List<Poster> getImageUrls() {
         return imageUrls;

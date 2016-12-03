@@ -11,11 +11,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import org.tek.geza.bestmovies.BestMoviesApplication;
 import org.tek.geza.bestmovies.R;
 import org.tek.geza.bestmovies.di.component.AppComponent;
 import org.tek.geza.bestmovies.di.module.ActivityModule;
 import org.tek.geza.bestmovies.di.module.ui.HomeModule;
+import org.tek.geza.bestmovies.presenter.HomePresenter;
 import org.tek.geza.bestmovies.util.OnTextClearedWatcher;
 import org.tek.geza.bestmovies.util.SearchListener;
 import org.tek.geza.bestmovies.view.adapter.MovieDbPager;
@@ -41,6 +46,9 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.et_search)
     EditText searchTextView;
 
+    @BindView(R.id.adView)
+    AdView adView;
+
     @Inject
     MovieDbPager pagerAdapter;
 
@@ -49,6 +57,9 @@ public class MainActivity extends BaseActivity {
 
     @Inject
     OnTextClearedWatcher watcher;
+
+    @Inject
+    HomePresenter presenter;
 
     ActivityModule activityModule;
 
@@ -59,10 +70,17 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initAds();
         setSupportActionBar(toolbar);
         setupViewPager();
         searchTextView.setOnEditorActionListener(searchListener);
         searchTextView.addTextChangedListener(watcher);
+    }
+
+    private void initAds() {
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-8360076444411384~4615082156");
+        AdRequest adRequest = presenter.getAdSetup();
+        adView.loadAd(adRequest);
     }
 
     @Override
@@ -98,6 +116,7 @@ public class MainActivity extends BaseActivity {
                 // show about
                 return true;
             case R.id.menu_remove_ads:
+                presenter.startPurchaseProcess(this);
                 return true;
             default:
                 break;

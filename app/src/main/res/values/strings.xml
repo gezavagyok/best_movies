@@ -11,4 +11,6 @@
     <string name="story_schema">Story:\n%1$s</string>
     <string name="movies_schema">%1$s</string>
 
+    <string name="banner_ad_unit_id">ca-app-pub-8360076444411384/6091815353</string>
+
 </resources>

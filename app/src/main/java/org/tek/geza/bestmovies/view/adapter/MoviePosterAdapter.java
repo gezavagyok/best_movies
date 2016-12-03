@@ -33,7 +33,10 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<PosterViewHolder> {
     @Override
     public void onBindViewHolder(PosterViewHolder holder, int position) {
         Picasso.with(holder.itemView.getContext())
-                .load("https://image.tmdb.org/t/p/w500"+posters.get(position).getFilePath()).into(holder.imageView);
+                .load("https://image.tmdb.org/t/p/w500"+posters.get(position).getFilePath())
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder_error)
+                .into(holder.imageView);
     }
 
     @Override

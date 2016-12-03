@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "44935521386",
+    "firebase_url": "https://bestmovies-d9e1e.firebaseio.com",
+    "project_id": "bestmovies-d9e1e",
+    "storage_bucket": "bestmovies-d9e1e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44935521386:android:ab8a2914dcbd40a6",
+        "android_client_info": {
+          "package_name": "org.tek.geza.bestmovies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44935521386-2etfntot9i46siv51uhcmjphgk8rs857.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.tek.geza.bestmovies",
+            "certificate_hash": "D754F46CA21D912C65AE3477333DD66FC888CE25"
+          }
+        },
+        {
+          "client_id": "44935521386-5vqj62430o5bj149qau8797lfi17j4av.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8eOOVjzJyfgZI2JRp7l0B2t4SkF7E5CM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44935521386-5vqj62430o5bj149qau8797lfi17j4av.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

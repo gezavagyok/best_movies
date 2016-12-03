@@ -4,6 +4,7 @@ import org.tek.geza.bestmovies.model.MovieDbApi;
 import org.tek.geza.bestmovies.model.movie.detail.MovieDetails;
 import org.tek.geza.bestmovies.model.movie.list.Movie;
 import org.tek.geza.bestmovies.model.movie.response.image.ImageResponse;
+import org.tek.geza.bestmovies.model.movie.response.review.ReviewResponse;
 import org.tek.geza.bestmovies.util.transformer.MovieTransformer;
 
 import rx.Observable;
@@ -42,6 +43,12 @@ public class MovieRepository {
 
     public Observable<ImageResponse> getMovieImages(int id) {
         return api.getMovieImages(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<ReviewResponse> getReviews(int id) {
+        return api.getReviews(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

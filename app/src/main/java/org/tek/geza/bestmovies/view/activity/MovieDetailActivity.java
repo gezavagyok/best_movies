@@ -46,8 +46,20 @@ public class MovieDetailActivity extends DetailActivity {
                         for(ProductionCountry pc: movieDetails.getProductionCountries()) sb.append(pc.getName()).append(" ");
                         tvCountry.setText(String.format(res.getString(R.string.production_countries_schema), sb.toString()));
                         tvOverview.setText(String.format(res.getString(R.string.story_schema), movieDetails.getOverview()));
-                        llImageContainer.setAdapter(new MoviePosterAdapter(movieDetails.getImageUrls()));
                         llImageContainer.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this,LinearLayoutManager.HORIZONTAL,false));
+                        llImageContainer.setAdapter(new MoviePosterAdapter(movieDetails.getImageUrls()));
+//                        Observable.from(movieDetails.getReviews())
+//                                .take(3)
+//                                .doOnNext(new Action1<Review>() {
+//                                    @Override
+//                                    public void call(Review review) {
+//                                        TextView reviewTextView = new TextView(MovieDetailActivity.this);
+//                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                                        reviewTextView.setLayoutParams(params);
+//                                        reviewTextView.setText(review.getContent());
+//                                        llReviewContainer.addView(reviewTextView);
+//                                    }
+//                                }).subscribe();
                     }
                 })
                 .onErrorReturn(new Func1<Throwable, MovieDetails>() {

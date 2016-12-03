@@ -3,8 +3,6 @@ package org.tek.geza.bestmovies.util.transformer;
 import org.tek.geza.bestmovies.model.movie.detail.MovieDetails;
 import org.tek.geza.bestmovies.model.movie.response.image.ImageResponse;
 
-import javax.inject.Inject;
-
 import rx.functions.Func2;
 
 /**
@@ -12,10 +10,6 @@ import rx.functions.Func2;
  */
 
 public class MovieAndPosterMerger implements Func2<MovieDetails,ImageResponse,MovieDetails> {
-
-    @Inject
-    public MovieAndPosterMerger() {
-    }
 
     @Override
     public MovieDetails call(MovieDetails movieDetails, ImageResponse imageResponse) {

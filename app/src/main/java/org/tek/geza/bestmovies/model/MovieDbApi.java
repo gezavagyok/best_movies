@@ -3,6 +3,7 @@ package org.tek.geza.bestmovies.model;
 import org.tek.geza.bestmovies.model.movie.detail.MovieDetails;
 import org.tek.geza.bestmovies.model.movie.response.MovieResponse;
 import org.tek.geza.bestmovies.model.movie.response.image.ImageResponse;
+import org.tek.geza.bestmovies.model.movie.response.review.ReviewResponse;
 import org.tek.geza.bestmovies.model.people.response.PeopleResponse;
 import org.tek.geza.bestmovies.model.tv.detail.TvShowDetail;
 import org.tek.geza.bestmovies.model.tv.response.TvShowResponse;
@@ -27,6 +28,9 @@ public interface MovieDbApi {
 
     @GET("movie/{movie_id}/images")
     Observable<ImageResponse> getMovieImages(@Path("movie_id") int id);
+
+    @GET("movie/{movie_id}/reviews")
+    Observable<ReviewResponse> getReviews(@Path("movie_id") int id);
 
     // TV SHOW
     @GET("tv/popular")
