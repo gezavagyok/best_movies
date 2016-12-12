@@ -9,9 +9,7 @@ import org.tek.geza.bestmovies.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by gezacsorba on 01/12/2016.
- */
+
 public class PosterViewHolder extends RecyclerView.ViewHolder{
 
     @BindView(R.id.iv_poster)

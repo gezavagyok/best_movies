@@ -12,5 +12,9 @@
     <string name="movies_schema">%1$s</string>
 
     <string name="banner_ad_unit_id">ca-app-pub-8360076444411384/6091815353</string>
+    <string name="purchase_dialog_content">Mindössze 290 Ft-ért, eltűnnek a reklámok örökre az alkalmazásból! Élvezd a reklámmenteséget!</string>
+    <string name="purchase_dialog_title">Vásárlás</string>
+    <string name="purchase_dialog_cancel">Mégse</string>
+    <string name="purchase_dialog_ok">Ok</string>
 
 </resources>

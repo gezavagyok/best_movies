@@ -8,9 +8,6 @@ import org.tek.geza.bestmovies.presenter.usecase.PurchaseUseCase;
 
 import rx.Observable;
 
-/**
- * Created by gezacsorba on 03/12/2016.
- */
 
 public class HomePresenter {
 

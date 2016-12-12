@@ -2,6 +2,7 @@ package org.tek.geza.bestmovies.di.module.ui;
 
 import org.tek.geza.bestmovies.model.MovieDbApi;
 import org.tek.geza.bestmovies.model.repository.MovieRepository;
+import org.tek.geza.bestmovies.presenter.MovieDetailPresenter;
 import org.tek.geza.bestmovies.presenter.MoviePresenter;
 import org.tek.geza.bestmovies.presenter.usecase.load.GetMovieDetails;
 import org.tek.geza.bestmovies.presenter.usecase.load.GetTop20Movies;
@@ -48,8 +49,12 @@ public class MovieModule {
 
     @Provides
     MoviePresenter provideMoviePresenter(GetTop20Movies getTop20Movies,
-                                         GetMovieDetails getMovieDetails,
                                          SearchForMovie searchForMovie) {
-        return new MoviePresenter(getTop20Movies, getMovieDetails, searchForMovie);
+        return new MoviePresenter(getTop20Movies, searchForMovie);
+    }
+
+    @Provides
+    MovieDetailPresenter provideDetailPresenter(GetMovieDetails getMovieDetails) {
+        return new MovieDetailPresenter(getMovieDetails);
     }
 }

@@ -32,7 +32,6 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
         subscriptions = new CompositeSubscription();
         setContentView(getLayoutId());
         ButterKnife.bind(this);
-
     }
 
     protected abstract void createComponent(AppComponent appcomponent);

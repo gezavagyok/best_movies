@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
 import com.google.android.gms.ads.AdRequest;
@@ -29,7 +31,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -81,6 +83,7 @@ public class MainActivity extends BaseActivity {
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-8360076444411384~4615082156");
         AdRequest adRequest = presenter.getAdSetup();
         adView.loadAd(adRequest);
+        adView.setVisibility(View.GONE);
     }
 
     @Override
@@ -112,11 +115,21 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.menu_about:
-                // show about
-                return true;
             case R.id.menu_remove_ads:
-                presenter.startPurchaseProcess(this);
+                final AlertDialog dialog = new AlertDialog.Builder(this).setView(R.layout.dialog_purchase).create();
+                dialog.show();
+                dialog.findViewById(R.id.btn_ok).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        presenter.startPurchaseProcess(HomeActivity.this);
+                    }
+                });
+                dialog.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
                 return true;
             default:
                 break;

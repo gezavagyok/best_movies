@@ -12,9 +12,7 @@ import org.tek.geza.bestmovies.model.movie.response.image.Poster;
 
 import java.util.List;
 
-/**
- * Created by gezacsorba on 01/12/2016.
- */
+
 
 public class MoviePosterAdapter extends RecyclerView.Adapter<PosterViewHolder> {
 

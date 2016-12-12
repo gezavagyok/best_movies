@@ -60,6 +60,7 @@ public abstract class ContentListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_content, container, false);
         inject();
+        sendAnalytics();
         subscription = new CompositeSubscription();
         ButterKnife.bind(this, view);
         onInit();
@@ -72,5 +73,7 @@ public abstract class ContentListFragment extends Fragment {
     abstract void setupRecyclerView();
 
     abstract protected void inject();
+
+    abstract void sendAnalytics();
 
 }

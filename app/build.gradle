@@ -60,5 +60,7 @@ dependencies {
     androidTestCompile 'org.hamcrest:hamcrest-library:1.1'
     testCompile 'com.squareup.okhttp3:mockwebserver:3.4.1'
     compile 'com.squareup.retrofit2:retrofit-mock:2.1.0'
+
+    compile 'com.google.android.gms:play-services-analytics:10.+'
 }
 apply plugin: 'com.google.gms.google-services'

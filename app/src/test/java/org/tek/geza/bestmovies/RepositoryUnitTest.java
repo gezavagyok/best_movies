@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
-import org.tek.geza.bestmovies.model.MovieDbApi;
 import org.tek.geza.bestmovies.model.people.Person;
 import org.tek.geza.bestmovies.model.repository.StarRepository;
 
@@ -20,14 +19,8 @@ import static org.mockito.Mockito.when;
 @RunWith(RobolectricGradleTestRunner.class)
 public class RepositoryUnitTest {
 
-    public static final int FAKE_ID = 0;
-    public static final String FAKE_STRING = "asd";
-
     @Mock
     StarRepository repository;
-
-    @Mock
-    MovieDbApi api;
 
     Person fakePersonGeza;
 

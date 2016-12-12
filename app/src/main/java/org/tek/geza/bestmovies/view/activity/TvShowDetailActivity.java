@@ -3,14 +3,20 @@ package org.tek.geza.bestmovies.view.activity;
 import android.content.res.Resources;
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import org.tek.geza.bestmovies.BestMoviesApplication;
 import org.tek.geza.bestmovies.R;
 import org.tek.geza.bestmovies.di.component.AppComponent;
 import org.tek.geza.bestmovies.di.module.ActivityModule;
 import org.tek.geza.bestmovies.di.module.ui.TvShowModule;
 import org.tek.geza.bestmovies.model.tv.detail.CreatedBy;
 import org.tek.geza.bestmovies.model.tv.detail.TvShowDetail;
-import org.tek.geza.bestmovies.presenter.TvShowPresenter;
+import org.tek.geza.bestmovies.presenter.TvShowDetailsPresenter;
 import org.tek.geza.bestmovies.view.adapter.MoviePosterAdapter;
+
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -23,7 +29,7 @@ import static rx.plugins.RxJavaHooks.onError;
 public class TvShowDetailActivity extends DetailActivity {
 
     @Inject
-    TvShowPresenter tvShowPresenter;
+    TvShowDetailsPresenter tvShowPresenter;
 
     @Override
     protected void bindData(int id) {
@@ -48,6 +54,15 @@ public class TvShowDetailActivity extends DetailActivity {
                         tvOverview.setText(String.format(res.getString(R.string.story_schema), tvShowDetail.getOverview()));
                         llImageContainer.setAdapter(new MoviePosterAdapter(tvShowDetail.getPosters()));
                         llImageContainer.setLayoutManager(new LinearLayoutManager(TvShowDetailActivity.this,LinearLayoutManager.HORIZONTAL,false));
+                        Map hits = new HitBuilders.EventBuilder()
+                                .setAction("movie detail viewed")
+                                .setCategory("detail")
+                                .setLabel(tvShowDetail.getName())
+                                .setValue(tvShowDetail.getId().longValue())
+                                .build();
+
+                        Tracker tracker = BestMoviesApplication.get().getDefaultTracker();
+                        tracker.send(hits);
                     }
                 })
                 .onErrorReturn(new Func1<Throwable, TvShowDetail>() {

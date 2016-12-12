@@ -2,17 +2,11 @@ package org.tek.geza.bestmovies.di.component;
 
 import org.tek.geza.bestmovies.di.module.ActivityModule;
 import org.tek.geza.bestmovies.di.module.ui.HomeModule;
-import org.tek.geza.bestmovies.view.activity.MainActivity;
+import org.tek.geza.bestmovies.view.activity.HomeActivity;
 
 import dagger.Subcomponent;
 
-/**
- * Created by gezacsorba on 26/11/2016.
- */
-@Subcomponent(
-        modules = {
-                HomeModule.class, ActivityModule.class
-        })
+@Subcomponent(modules = {HomeModule.class, ActivityModule.class})
 public interface HomeComponent {
-    void inject(MainActivity activity);
+    void inject(HomeActivity activity);
 }

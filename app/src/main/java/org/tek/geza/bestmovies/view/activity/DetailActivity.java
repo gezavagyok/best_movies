@@ -53,5 +53,6 @@ public abstract class DetailActivity extends BaseActivity {
     }
 
     protected abstract void bindData(int id);
+
 }
 

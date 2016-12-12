@@ -10,9 +10,6 @@ import org.tek.geza.bestmovies.di.module.ui.TvShowModule;
 
 import dagger.Component;
 
-/**
- * Created by gezacsorba on 26/11/2016.
- */
 @Component(modules = {AppModule.class, NetworkModule.class})
 public interface AppComponent {
 

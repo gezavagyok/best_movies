@@ -5,10 +5,6 @@ import org.tek.geza.bestmovies.model.movie.response.image.ImageResponse;
 
 import rx.functions.Func2;
 
-/**
- * Created by gezacsorba on 01/12/2016.
- */
-
 public class MovieAndPosterMerger implements Func2<MovieDetails,ImageResponse,MovieDetails> {
 
     @Override

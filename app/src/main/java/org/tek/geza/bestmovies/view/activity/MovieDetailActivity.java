@@ -3,6 +3,10 @@ package org.tek.geza.bestmovies.view.activity;
 import android.content.res.Resources;
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import org.tek.geza.bestmovies.BestMoviesApplication;
 import org.tek.geza.bestmovies.R;
 import org.tek.geza.bestmovies.di.component.AppComponent;
 import org.tek.geza.bestmovies.di.module.ActivityModule;
@@ -10,8 +14,10 @@ import org.tek.geza.bestmovies.di.module.ui.MovieModule;
 import org.tek.geza.bestmovies.model.movie.detail.Genre;
 import org.tek.geza.bestmovies.model.movie.detail.MovieDetails;
 import org.tek.geza.bestmovies.model.movie.detail.ProductionCountry;
-import org.tek.geza.bestmovies.presenter.MoviePresenter;
+import org.tek.geza.bestmovies.presenter.MovieDetailPresenter;
 import org.tek.geza.bestmovies.view.adapter.MoviePosterAdapter;
+
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -24,7 +30,7 @@ import static rx.plugins.RxJavaHooks.onError;
 public class MovieDetailActivity extends DetailActivity {
 
     @Inject
-    MoviePresenter moviePresenter;
+    MovieDetailPresenter moviePresenter;
 
     @Override
     protected void bindData(int id) {
@@ -48,18 +54,15 @@ public class MovieDetailActivity extends DetailActivity {
                         tvOverview.setText(String.format(res.getString(R.string.story_schema), movieDetails.getOverview()));
                         llImageContainer.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this,LinearLayoutManager.HORIZONTAL,false));
                         llImageContainer.setAdapter(new MoviePosterAdapter(movieDetails.getImageUrls()));
-//                        Observable.from(movieDetails.getReviews())
-//                                .take(3)
-//                                .doOnNext(new Action1<Review>() {
-//                                    @Override
-//                                    public void call(Review review) {
-//                                        TextView reviewTextView = new TextView(MovieDetailActivity.this);
-//                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//                                        reviewTextView.setLayoutParams(params);
-//                                        reviewTextView.setText(review.getContent());
-//                                        llReviewContainer.addView(reviewTextView);
-//                                    }
-//                                }).subscribe();
+                        Map hits = new HitBuilders.EventBuilder()
+                                .setAction("movie detail viewed")
+                                .setCategory("detail")
+                                .setLabel(movieDetails.getOriginalTitle())
+                                .setValue(movieDetails.getId().longValue())
+                                .build();
+
+                        Tracker tracker = BestMoviesApplication.get().getDefaultTracker();
+                        tracker.send(hits);
                     }
                 })
                 .onErrorReturn(new Func1<Throwable, MovieDetails>() {

@@ -10,6 +10,7 @@ import org.robolectric.annotation.Config;
 import org.tek.geza.bestmovies.model.MovieDbApi;
 import org.tek.geza.bestmovies.model.movie.detail.MovieDetails;
 import org.tek.geza.bestmovies.model.movie.response.MovieResponse;
+import org.tek.geza.bestmovies.model.movie.response.image.ImageResponse;
 import org.tek.geza.bestmovies.model.people.response.PeopleResponse;
 import org.tek.geza.bestmovies.model.tv.detail.TvShowDetail;
 import org.tek.geza.bestmovies.model.tv.response.TvShowResponse;
@@ -45,6 +46,11 @@ public class ApiUnitTest {
     public void apiTestGetDetails() throws Exception {
         given(api.getMovieDetail(FAKE_ID)).willReturn(Observable.just(new MovieDetails()));
         given(api.getTvShowDetail(FAKE_ID)).willReturn(Observable.just(new TvShowDetail()));
+    }
+
+    @Test
+    public void apiTestGetPosters() throws Exception {
+        given(api.getMovieImages(FAKE_ID)).willReturn(Observable.just(new ImageResponse()));
     }
 
     @Test

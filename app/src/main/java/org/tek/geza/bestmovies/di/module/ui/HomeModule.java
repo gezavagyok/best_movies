@@ -10,9 +10,6 @@ import org.tek.geza.bestmovies.view.adapter.MovieDbPager;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by gezacsorba on 26/11/2016.
- */
 @Module(includes = ActivityModule.class)
 public class HomeModule {
 

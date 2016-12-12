@@ -3,6 +3,9 @@ package org.tek.geza.bestmovies.view.fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.tek.geza.bestmovies.BestMoviesApplication;
@@ -12,8 +15,10 @@ import org.tek.geza.bestmovies.presenter.TvShowPresenter;
 import org.tek.geza.bestmovies.util.event.LoadRequestEvent;
 import org.tek.geza.bestmovies.util.event.SearchRequestEvent;
 import org.tek.geza.bestmovies.util.network.ErrorHandler;
-import org.tek.geza.bestmovies.view.activity.MainActivity;
+import org.tek.geza.bestmovies.view.activity.HomeActivity;
 import org.tek.geza.bestmovies.view.adapter.tv.TvAdapter;
+
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -56,6 +61,16 @@ public class TvShowFragment extends ContentListFragment {
     @Subscribe
     public void onSearchRequest(SearchRequestEvent event) {
         if (!getUserVisibleHint()) return;
+
+        Map hits = new HitBuilders.EventBuilder()
+                .setAction("tv show search")
+                .setCategory("search")
+                .setLabel(event.getQuery().toString())
+                .build();
+
+        Tracker tracker = BestMoviesApplication.get().getDefaultTracker();
+        tracker.send(hits);
+
 
         tvAdapter.clear();
         Subscription s = presenter.searchTvShow(event.getQuery().toString())
@@ -128,8 +143,15 @@ public class TvShowFragment extends ContentListFragment {
     @Override
     protected void inject() {
         BestMoviesApplication.getComponent()
-                .tvShow(((MainActivity)getActivity()).getActivityModule(),
+                .tvShow(((HomeActivity)getActivity()).getActivityModule(),
                         new TvShowModule())
                 .inject(this);
+    }
+
+    @Override
+    void sendAnalytics() {
+        Tracker tracker = BestMoviesApplication.get().getDefaultTracker();
+        tracker.setScreenName(ContentListFragment.TVSHOW_TITLE.toString());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 }

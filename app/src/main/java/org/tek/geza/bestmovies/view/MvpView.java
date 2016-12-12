@@ -1,8 +1,5 @@
 package org.tek.geza.bestmovies.view;
 
-/**
- * Created by gezacsorba on 26/11/2016.
- */
 
 public interface MvpView {
 

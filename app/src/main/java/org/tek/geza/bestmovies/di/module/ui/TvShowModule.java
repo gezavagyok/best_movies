@@ -2,6 +2,7 @@ package org.tek.geza.bestmovies.di.module.ui;
 
 import org.tek.geza.bestmovies.model.MovieDbApi;
 import org.tek.geza.bestmovies.model.repository.TvRepository;
+import org.tek.geza.bestmovies.presenter.TvShowDetailsPresenter;
 import org.tek.geza.bestmovies.presenter.TvShowPresenter;
 import org.tek.geza.bestmovies.presenter.usecase.load.GetTvShowDetail;
 import org.tek.geza.bestmovies.presenter.usecase.load.GetTvShows;
@@ -42,8 +43,12 @@ public class TvShowModule {
 
     @Provides
     TvShowPresenter provideTvShowPresenter(GetTvShows getTvShows,
-                                           GetTvShowDetail getTvShowDetail,
                                            SearchForTvShow searchForTvShow) {
-        return new TvShowPresenter(getTvShows, getTvShowDetail, searchForTvShow);
+        return new TvShowPresenter(getTvShows, searchForTvShow);
+    }
+
+    @Provides
+    TvShowDetailsPresenter provideTvShowDetailsPresenter(GetTvShowDetail getTvShowDetail) {
+        return new TvShowDetailsPresenter(getTvShowDetail);
     }
 }
